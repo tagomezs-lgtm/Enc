@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta: Uso de Plantas Medicinales y Fármacos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .university-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .intro {
+            background: #f0f7ff;
+            padding: 20px;
+            border-left: 4px solid #2a5298;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .intro h3 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+        
+        .intro p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .consent {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .consent label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .consent input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+        }
+        
+        .section-title {
+            background: #2a5298;
+            color: white;
+            padding: 12px 20px;
+            margin: 30px -30px 20px -30px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .question {
+            margin-bottom: 25px;
+        }
+        
+        .question-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+            font-size: 15px;
+        }
+        
+        .required {
+            color: #dc3545;
+            margin-left: 3px;
+        }
+        
+        .option {
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .option:hover {
+            background: #e9ecef;
+            border-color: #2a5298;
+        }
+        
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="number"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-suffix {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc3545;
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .section-title {
+                margin-left: -20px;
+                margin-right: -20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Encuesta sobre Uso de Plantas Medicinales y Fármacos</h1>
+            <p>Para el tratamiento de Resfriado y Tos Común</p>
+            <div class="university-info">
+                <strong>Universidad Nacional de Trujillo</strong><br>
+                Facultad de Farmacia y Bioquímica<br>
+                Curso: Bioestadística - Segundo Ciclo<br>
+                Año 2025
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h3>📋 Presentación</h3>
+                <p>Estimado(a) participante,</p>
+                <p>Somos estudiantes del segundo ciclo de la Facultad de Farmacia y Bioquímica de la Universidad Nacional de Trujillo. Estamos realizando un estudio sobre el uso de plantas medicinales y fármacos para tratar el resfriado y la tos común en la zona de Vista Hermosa, Víctor Larco Herrera.</p>
+                <p><strong>Su participación es voluntaria y anónima.</strong> La información proporcionada será confidencial y se utilizará únicamente con fines académicos para el curso de Bioestadística.</p>
+                <p>La encuesta tomará aproximadamente <strong>8-10 minutos</strong>.</p>
+            </div>
+            
+            <div class="consent">
+                <label>
+                    <input type="checkbox" id="consent" required>
+                    <span>Acepto participar voluntariamente en esta encuesta y autorizo el uso de la información con fines académicos.</span>
+                </label>
+            </div>
+            
+            <div id="error-container"></div>
+            
+            <form id="surveyForm">
+                <!-- SECCIÓN I: DATOS SOCIODEMOGRÁFICOS -->
+                <div class="section-title">SECCIÓN I: DATOS SOCIODEMOGRÁFICOS</div>
+                
+                <div class="question">
+                    <label class="question-label">1. Sexo: <span class="required">*</span></label>
+                    <label class="option">
+                        <input type="radio" name="sexo" value="Masculino" required>
+                        Masculino
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="sexo" value="Femenino" required>
+                        Femenino
+                    </label>
+                </div>
+                
+                <div class="question">
+                    <label class="question-label">2. ¿Cuál es su edad? <span class="required">*</span></label>
+                    <div class="input-group">
+                        <input type="number" name="edad" min="18" max="100" required placeholder="Ejemplo: 25">
+                        <span class="input-suffix">años</span>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <label class="question-label">3. ¿Cuál es su nivel educativo más alto alcanzado? <span class="required">*</span></label>
+                    <label class="option">
+                        <input type="radio" name="educacion" value="Sin educación formal" required>
+                        Sin educación formal
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="educacion" value="Primaria completa" required>
+                        Primaria completa
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="educacion" value="Secundaria completa" required>
+                        Secundaria completa
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="educacion" value="Técnico/Tecnológico" required>
+                        Técnico/Tecnológico
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="educacion" value="Universitario" required>
+                        Universitario
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="educacion" value="Posgrado" required>
+                        Posgrado
+                    </label>
+                </div>
+                
+                <div class="question">
+                    <label class="question-label">4. ¿Cuál es su ocupación actual? <span class="required">*</span></label>
+                    <label class="option">
+                        <input type="radio" name="ocupacion" value="Estudiante" required>
+                        Estudiante
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ocupacion" value="Trabajador dependiente" required>
+                        Trabajador dependiente (con empleador)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ocupacion" value="Trabajador independiente" required>
+                        Trabajador independiente (negocio propio)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ocupacion" value="Ama de casa" required>
+                        Ama de casa
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ocupacion" value="Jubilado/Pensionista" required>
+                        Jubilado/Pensionista
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ocupacion" value="Desempleado" required>
+                        Desempleado
+                    </label>
+                </div>
+                
+                <!-- SECCIÓN II: SOBRE EL RESFRIADO Y TOS -->
+                <div class="section-title">SECCIÓN II: SOBRE EL RESFRIADO Y TOS</div>
+                
+                <div class="question">
+                    <label class="question-label">5. ¿Ha tenido resfriado o tos en los últimos 6 meses? <span class="required">*</span></label>
+                    <label class="option">
+                        <input type="radio" name="tuvo_resfriado" value="Si" required onchange="toggleSections()">
+                        Sí
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="tuvo_resfriado" value="No" required onchange="toggleSections()">
+                        No
+                    </label>
+                </div>
+                
+                <div id="continueSections" class="hidden">
+                    <div class="question">
+                        <label class="question-label">6. ¿Cuántas veces ha tenido resfriado o tos en el último año? <span class="required">*</span></label>
+                        <div class="input-group">
+                            <input type="number" name="frecuencia_anual" min="1" max="20" placeholder="Ejemplo: 3">
+                            <span class="input-suffix">veces</span>
+                        </div>
+                    </div>
+                    
+                    <!-- SECCIÓN III: TIPO DE TRATAMIENTO -->
+                    <div class="section-title">SECCIÓN III: TIPO DE TRATAMIENTO UTILIZADO</div>
+                    
+                    <div class="question">
+                        <label class="question-label">7. ¿Qué utilizó para tratar su resfriado o tos la última vez? <span class="required">*</span></label>
+                        <label class="option">
+                            <input type="radio" name="tipo_tratamiento" value="Plantas medicinales" onchange="toggleTreatmentSections()">
+                            Solo plantas medicinales (hierbas, infusiones naturales)
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="tipo_tratamiento" value="Fármacos" onchange="toggleTreatmentSections()">
+                            Solo fármacos (medicamentos de farmacia)
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="tipo_tratamiento" value="Ambos" onchange="toggleTreatmentSections()">
+                            Ambos (plantas medicinales y fármacos)
+                        </label>
+                    </div>
+                    
+                    <div id="plantasSection" class="question hidden">
+                        <label class="question-label">8a. ¿Cuál(es) planta(s) medicinal(es) utilizó? (Puede marcar más de una)</label>
+                        <label class="option">
+                            <input type="checkbox" name="plantas" value="Eucalipto">
+                            Eucalipto
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="plantas" value="Manzanilla">
+                            Manzanilla
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="plantas" value="Jengibre/Kion">
+                            Jengibre/Kion
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="plantas" value="Limón">
+                            Limón
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="plantas" value="Miel de abeja">
+                            Miel de abeja
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="plantas" value="Matico">
+                            Matico
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="plantas" value="Llantén">
+                            Llantén
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="plantas" value="Otra" onchange="toggleOtraPlanta()">
+                            Otra
+                        </label>
+                        <input type="text" id="otraPlanta" name="otra_planta" placeholder="Especifique otra planta" class="hidden" style="margin-top: 10px;">
+                    </div>
+                    
+                    <div id="farmacosSection" class="question hidden">
+                        <label class="question-label">8b. ¿Cuál(es) fármaco(s) utilizó? (Puede marcar más de una)</label>
+                        <label class="option">
+                            <input type="checkbox" name="farmacos" value="Paracetamol">
+                            Paracetamol
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="farmacos" value="Ibuprofeno">
+                            Ibuprofeno
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="farmacos" value="Antigripales">
+                            Antigripales (Tabcin, Nastizol, Resprin, etc.)
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="farmacos" value="Jarabes">
+                            Jarabes para la tos
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="farmacos" value="Antibióticos">
+                            Antibióticos
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="farmacos" value="Otro" onchange="toggleOtroFarmaco()">
+                            Otro
+                        </label>
+                        <input type="text" id="otroFarmaco" name="otro_farmaco" placeholder="Especifique otro fármaco" class="hidden" style="margin-top: 10px;">
+                    </div>
+                    
+                    <div class="question">
+                        <label class="question-label">9. ¿Dónde obtuvo su tratamiento? <span class="required">*</span></label>
+                        <label class="option">
+                            <input type="radio" name="lugar_adquisicion" value="Farmacia/Botica">
+                            Farmacia/Botica
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="lugar_adquisicion" value="Mercado">
+                            Mercado
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="lugar_adquisicion" value="Tienda naturista">
+                            Tienda naturista
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="lugar_adquisicion" value="Preparación casera">
+                            Lo preparé en casa
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="lugar_adquisicion" value="Regalo">
+                            Me lo regalaron/dieron
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="lugar_adquisicion" value="Otro" onchange="toggleOtroLugar()">
+                            Otro
+                        </label>
+                        <input type="text" id="otroLugar" name="otro_lugar" placeholder="Especifique otro lugar" class="hidden" style="margin-top: 10px;">
+                    </div>
+                    
+                    <div class="question">
+                        <label class="question-label">10. ¿Cuánto gastó aproximadamente en ese tratamiento? <span class="required">*</span></label>
+                        <div class="input-group">
+                            <span class="input-suffix">S/</span>
+                            <input type="number" name="gasto" min="0" step="0.5" placeholder="Ejemplo: 15.00">
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <label class="question-label">11. ¿Por cuántos días usó el tratamiento? <span class="required">*</span></label>
+                        <div class="input-group">
+                            <input type="number" name="duracion" min="1" max="30" placeholder="Ejemplo: 5">
+                            <span class="input-suffix">días</span>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <label class="question-label">12. ¿Cuántos días pasaron hasta que sintió mejoría? <span class="required">*</span></label>
+                        <div class="input-group">
+                            <input type="number" name="mejoria" min="1" max="30" placeholder="Ejemplo: 3">
+                            <span class="input-suffix">días</span>
+                        </div>
+                    </div>
+                    
+                    <!-- SECCIÓN IV: RAZONES Y SATISFACCIÓN -->
+                    <div class="section-title">SECCIÓN IV: RAZONES Y SATISFACCIÓN</div>
+                    
+                    <div class="question">
+                        <label class="question-label">13. ¿Por qué eligió ese tratamiento? (Marque la razón PRINCIPAL) <span class="required">*</span></label>
+                        <label class="option">
+                            <input type="radio" name="razon" value="Más efectivo">
+                            Es más efectivo
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="razon" value="Más económico">
+                            Es más económico
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="razon" value="Tradición familiar">
+                            Tradición familiar
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="razon" value="Recomendación">
+                            Me lo recomendaron
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="razon" value="Sin efectos secundarios">
+                            No tiene efectos secundarios
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="razon" value="Fácil acceso">
+                            Es más fácil de conseguir
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="razon" value="Otra" onchange="toggleOtraRazon()">
+                            Otra razón
+                        </label>
+                        <input type="text" id="otraRazon" name="otra_razon" placeholder="Especifique otra razón" class="hidden" style="margin-top: 10px;">
+                    </div>
+                    
+                    <div class="question">
+                        <label class="question-label">14. ¿Qué tan satisfecho quedó con el resultado del tratamiento? <span class="required">*</span></label>
+                        <label class="option">
+                            <input type="radio" name="satisfaccion" value="Muy satisfecho">
+                            Muy satisfecho
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="satisfaccion" value="Satisfecho">
+                            Satisfecho
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="satisfaccion" value="Poco satisfecho">
+                            Poco satisfecho
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="satisfaccion" value="Nada satisfecho">
+                            Nada satisfecho
+                        </label>
+                    </div>
+                    
+                    <div class="question">
+                        <label class="question-label">15. ¿Volvería a usar el mismo tratamiento si tiene resfriado otra vez? <span class="required">*</span></label>
+                        <label class="option">
+                            <input type="radio" name="volveria" value="Sí, definitivamente">
+                            Sí, definitivamente
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="volveria" value="Probablemente sí">
+                            Probablemente sí
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="volveria" value="Probablemente no">
+                            Probablemente no
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="volveria" value="No, buscaría otra opción">
+                            No, buscaría otra opción
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>Enviar Encuesta</button>
+            </form>
+            
+            <div id="successMessage" class="success-message hidden">
+                <h3>✅ ¡Encuesta enviada exitosamente!</h3>
+                <p>Muchas gracias por su participación. Su información es muy valiosa para nuestro estudio.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Habilitar botón de envío cuando se acepte el consentimiento
+        document.getElementById('consent').addEventListener('change', function() {
+            document.getElementById('submitBtn').disabled = !this.checked;
+        });
+        
+        // Mostrar/ocultar secciones según respuesta de pregunta 5
+        function toggleSections() {
+            const tuvoResfriado = document.querySelector('input[name="tuvo_resfriado"]:checked');
+            const continueSections = document.getElementById('continueSections');
+            
+            if (tuvoResfriado && tuvoResfriado.value === 'Si') {
+                continueSections.classList.remove('hidden');
+            } else {
+                continueSections.classList.add('hidden');
+            }
+        }
+        
+        // Mostrar/ocultar secciones de plantas y fármacos según tipo de tratamiento
+        function toggleTreatmentSections() {
+            const tipoTratamiento = document.querySelector('input[name="tipo_tratamiento"]:checked');
+            const plantasSection = document.getElementById('plantasSection');
+            const farmacosSection = document.getElementById('farmacosSection');
+            
+            plantasSection.classList.add('hidden');
+            farmacosSection.classList.add('hidden');
+            
+            if (tipoTratamiento) {
+                if (tipoTratamiento.value === 'Plantas medicinales') {
+                    plantasSection.classList.remove('hidden');
+                } else if (tipoTratamiento.value === 'Fármacos') {
+                    farmacosSection.classList.remove('hidden');
+                } else if (tipoTratamiento.value === 'Ambos') {
+                    plantasSection.classList.remove('hidden');
+                    farmacosSection.classList.remove('hidden');
+                }
+            }
+        }
+        
+        // Toggle para "Otra planta"
+        function toggleOtraPlanta() {
+            const checkbox = document.querySelector('input[name="plantas"][value="Otra"]');
+            const input = document.getElementById('otraPlanta');
+            input.classList.toggle('hidden', !checkbox.checked);
+        }
+        
+        // Toggle para "Otro fármaco"
+        function toggleOtroFarmaco() {
+            const checkbox = document.querySelector('input[name="farmacos"][value="Otro"]');
+            const input = document.getElementById('otroFarmaco');
+            input.classList.toggle('hidden', !checkbox.checked);
+        }
+        
+        // Toggle para "Otro lugar"
+        function toggleOtroLugar() {
+            const radio = document.querySelector('input[name="lugar_adquisicion"][value="Otro"]');
+            const input = document.getElementById('otroLugar');
+            input.classList.toggle('hidden', !radio.checked);
+        }
+        
+        // Toggle para "Otra razón"
+        function toggleOtraRazon() {
+            const radio = document.querySelector('input[name="razon"][value="Otra"]');
+            const input = document.getElementById('otraRazon');
+            input.classList.toggle('hidden', !radio.checked);
+        }
+        
+        // Manejo del envío del formulario
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const errorContainer = document.getElementById('error-container');
+            errorContainer.innerHTML = '';
+            
+            // Validar consentimiento
+            if (!document.getElementById('consent').checked) {
+                errorContainer.innerHTML = '<div class="error-message">Debe aceptar el consentimiento para continuar.</div>';
+                return;
+            }
+            
+            // Validar pregunta 5
+            const tuvoResfriado = document.querySelector('input[name="tuvo_resfriado"]:checked');
+            if (!tuvoResfriado) {
+                errorContainer.innerHTML = '<div class="error-message">Por favor, responda si ha tenido resfriado o tos en los últimos 6 meses.</div>';
+                return;
+            }
+            
+            // Si respondió "No", enviar solo las primeras preguntas
+            if (tuvoResfriado.value === 'No') {
+                showSuccessMessage();
+                return;
+            }
+            
+            // Recopilar datos
+            const formData = new FormData(this);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            // Aquí normalmente enviarías los datos a un servidor
+            console.log('Datos de la encuesta:', data);
+            
+            // Mostrar mensaje de éxito
+            showSuccessMessage();
+        });
+        
+        function showSuccessMessage() {
+            document.getElementById('surveyForm').classList.add('hidden');
+            document.getElementById('successMessage').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
